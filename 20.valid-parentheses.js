@@ -68,7 +68,7 @@ var isValid = function(s) {
       '{': '}',
       '[': ']'
     };
-    for (let i = 0; i < stack.length; i++) {
+    for (let i = 0; i < s.length; i++) {
       if (map[s[i]]) {
          stack.push(s[i]);
       } else {
@@ -80,5 +80,9 @@ var isValid = function(s) {
 };
 return stack.length === 0;
 };
+
+let input = "{[]}";
+let isValidString = isValid(input);
+console.log(isValidString);
 // @lc code=end
 
