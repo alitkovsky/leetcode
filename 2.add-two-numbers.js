@@ -69,31 +69,35 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    let dummy = new ListNode(0);
-    let current = dummy;
-    let carry = 0;
-    while (l1 || l2 || carry) {
-      let sum = (l1 ? l1.lat : 0) + (l2 ? l2.lat : 0) + carry;
-      carry = Math.floor(sum / 10);
-      current.next = new ListNode(sum % 10);
+const addTwoNumbers = (l1, l2) => {
+  let p1 = l1,
+      p2 = l2,
+      number1 = 0,
+      number2 = 0,
+      carry = 0,
+      solution = new ListNode(0),
+      current = solution;
+
+  while(p1 || p2){
+    number1 = (p1) ? p1.val : 0;
+    number2 = (p2) ? p2.val : 0;
+
+    if(number1 + number2 + carry > 9){
+      current.next = new ListNode(number1 + number2 + carry - 10);
       current = current.next;
-      l1 = l2 ? l1.next : null;
-      l2 = l1 ? l2.next : null;
+      carry = 1;
+    }else{
+      current.next = new ListNode(number1 + number2 + carry);
+      current = current.next;
+      carry = 0;
     }
-    return dummy.next;
-};
 
-// The example of usege of the function addTwoNumbers:
+    if(p1) p1 = p1.next;
+    if(p2) p2 = p2.next; 
+  }
 
-// Definition for singly-linked list.
-function ListNode (val, next) {
-   this.val = (val === undefined ? 0 : val);
-   this.next = (next === undefined ? null : next);
+  if(carry) current.next = new ListNode(carry);
+  return solution.next;
 };
-let l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
-let l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
-let sum = addTwoNumbers(l1, l2);
-console.log(sum);
 // @lc code=end
 
